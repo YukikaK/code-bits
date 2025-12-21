@@ -3,35 +3,31 @@ import ArticleLayout from '../layouts/ArticleLayout.astro';
 import fs from 'node:fs';
 import path from 'node:path';
 
-// デモファイルの読み込み
-const demoPath = path.join(process.cwd(), 'public/demos/007');
+const demoPath = path.join(process.cwd(), 'public/demos/014');
 const htmlCode = fs.readFileSync(path.join(demoPath, 'index.html'), 'utf-8');
 const cssCode = fs.readFileSync(path.join(demoPath, 'style.css'), 'utf-8');
 const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
 ---
 
 <ArticleLayout
-  title="#007 Heart Beat Monitor - Code Bits"
-  description="心電図モニター風の心拍アニメーション。"
+  title="#014 Ripple Effect - Code Bits"
+  description="クリックで広がる波紋エフェクト。"
 >
   <article class="article">
     <div class="container">
-
-      <!-- 記事ヘッダー -->
       <header class="article-header">
         <div class="article-meta">
-          <span class="article-number">#007</span>
+          <span class="article-number">#014</span>
           <span class="article-category">Animation</span>
           <time class="article-date" datetime="2025-01-21">2025.01.21</time>
         </div>
-        <h1 class="article-title">Heart Beat Monitor</h1>
+        <h1 class="article-title">Ripple Effect</h1>
         <p class="article-description">
-          心電図モニター風の心拍アニメーション。<br>
-          SVGパスアニメーションとCSSキーフレームで実装したリアルな心拍表現です。
+          クリックで広がる波紋エフェクト。<br>
+          水滴のような美しいリップルアニメーションです。
         </p>
       </header>
 
-      <!-- デモエリア -->
       <section class="demo-section">
         <div class="demo-header">
           <h2 class="demo-title">Demo</h2>
@@ -42,11 +38,10 @@ const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
           </button>
         </div>
         <div class="demo-container">
-          <iframe src="/demos/007/index.html" id="demoFrame" title="デモ" class="demo-iframe"></iframe>
+          <iframe src="/demos/014/index.html" id="demoFrame" title="デモ" class="demo-iframe"></iframe>
         </div>
       </section>
 
-      <!-- HTML -->
       <section class="code-section">
         <div class="code-header">
           <h2 class="code-title">
@@ -66,7 +61,6 @@ const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
         </div>
       </section>
 
-      <!-- CSS -->
       <section class="code-section">
         <div class="code-header">
           <h2 class="code-title">
@@ -86,7 +80,6 @@ const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
         </div>
       </section>
 
-      <!-- JavaScript -->
       <section class="code-section">
         <div class="code-header">
           <h2 class="code-title">
@@ -106,7 +99,6 @@ const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
         </div>
       </section>
 
-      <!-- ダウンロード -->
       <section class="download-section">
         <h2 class="download-title">Download</h2>
         <p class="download-description">すべてのファイルをZIP形式でダウンロードできます。</p>
@@ -120,18 +112,16 @@ const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
         </button>
       </section>
 
-      <!-- ナビゲーション -->
       <nav class="article-nav">
-        <a href="/006-sparkle-cursor" class="article-nav-link article-nav-link--prev">
+        <a href="/013-neon-sign" class="article-nav-link article-nav-link--prev">
           <span class="article-nav-label">← Previous</span>
-          <span class="article-nav-title">#006 Sparkle Cursor Trail</span>
+          <span class="article-nav-title">#013 Neon Sign</span>
         </a>
-        <a href="/008-typing-effect" class="article-nav-link article-nav-link--next">
+        <a href="/015-parallax-scroll" class="article-nav-link article-nav-link--next">
           <span class="article-nav-label">Next →</span>
-          <span class="article-nav-title">#008 Typing Effect</span>
+          <span class="article-nav-title">#015 Parallax Scroll</span>
         </a>
       </nav>
-
     </div>
   </article>
 </ArticleLayout>
