@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { articles } from '../data/articles';
 ---
 
 <BaseLayout
@@ -40,207 +42,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="articles-section">
     <div class="container">
       <div class="articles-grid">
-
-        <!-- 記事カード #011 -->
-        <article class="article-card" data-category="text">
-          <a href="/011-neon-sign" class="article-card-link">
-            <div class="article-card-thumbnail">
-              <iframe src="/demos/011/index.html" loading="lazy" title="デモプレビュー"></iframe>
-            </div>
-            <div class="article-card-body">
-              <span class="article-card-number">#011</span>
-              <h2 class="article-card-title">Neon Sign Effect</h2>
-              <p class="article-card-description">点滅するレトロなネオンサインエフェクト</p>
-              <div class="article-card-meta">
-                <span class="article-card-category">Text</span>
-                <time class="article-card-date" datetime="2025-01-21">2025.01.21</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <!-- 記事カード #010 -->
-        <article class="article-card" data-category="text">
-          <a href="/010-wave-text" class="article-card-link">
-            <div class="article-card-thumbnail">
-              <iframe src="/demos/010/index.html" loading="lazy" title="デモプレビュー"></iframe>
-            </div>
-            <div class="article-card-body">
-              <span class="article-card-number">#010</span>
-              <h2 class="article-card-title">Wave Text</h2>
-              <p class="article-card-description">各文字が波のように上下するテキストエフェクト</p>
-              <div class="article-card-meta">
-                <span class="article-card-category">Text</span>
-                <time class="article-card-date" datetime="2025-01-21">2025.01.21</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <!-- 記事カード #009 -->
-        <article class="article-card" data-category="background">
-          <a href="/009-particle-network" class="article-card-link">
-            <div class="article-card-thumbnail">
-              <iframe src="/demos/009/index.html" loading="lazy" title="デモプレビュー"></iframe>
-            </div>
-            <div class="article-card-body">
-              <span class="article-card-number">#009</span>
-              <h2 class="article-card-title">Particle Network</h2>
-              <p class="article-card-description">マウスに反応する粒子が繋がるエフェクト</p>
-              <div class="article-card-meta">
-                <span class="article-card-category">Background</span>
-                <time class="article-card-date" datetime="2025-01-21">2025.01.21</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <!-- 記事カード #008 -->
-        <article class="article-card" data-category="text">
-          <a href="/008-typing-effect" class="article-card-link">
-            <div class="article-card-thumbnail">
-              <iframe src="/demos/008/index.html" loading="lazy" title="デモプレビュー"></iframe>
-            </div>
-            <div class="article-card-body">
-              <span class="article-card-number">#008</span>
-              <h2 class="article-card-title">Typing Effect</h2>
-              <p class="article-card-description">ターミナル風のタイピングエフェクト</p>
-              <div class="article-card-meta">
-                <span class="article-card-category">Text</span>
-                <time class="article-card-date" datetime="2025-01-21">2025.01.21</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <!-- 記事カード #007 -->
-        <article class="article-card" data-category="animation">
-          <a href="/007-heart-beat" class="article-card-link">
-            <div class="article-card-thumbnail">
-              <iframe src="/demos/007/index.html" loading="lazy" title="デモプレビュー"></iframe>
-            </div>
-            <div class="article-card-body">
-              <span class="article-card-number">#007</span>
-              <h2 class="article-card-title">Heart Beat Monitor</h2>
-              <p class="article-card-description">心電図モニター風の心拍アニメーション</p>
-              <div class="article-card-meta">
-                <span class="article-card-category">Animation</span>
-                <time class="article-card-date" datetime="2025-01-21">2025.01.21</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <!-- 記事カード #006 -->
-        <article class="article-card" data-category="animation">
-          <a href="/006-sparkle-cursor" class="article-card-link">
-            <div class="article-card-thumbnail">
-              <iframe src="/demos/006/index.html" loading="lazy" title="デモプレビュー"></iframe>
-            </div>
-            <div class="article-card-body">
-              <span class="article-card-number">#006</span>
-              <h2 class="article-card-title">Sparkle Cursor Trail</h2>
-              <p class="article-card-description">カーソルに追従するキラキラエフェクト</p>
-              <div class="article-card-meta">
-                <span class="article-card-category">Animation</span>
-                <time class="article-card-date" datetime="2025-01-21">2025.01.21</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <!-- 記事カード #005 -->
-        <article class="article-card" data-category="button">
-          <a href="/005-glowing-button" class="article-card-link">
-            <div class="article-card-thumbnail">
-              <iframe src="/demos/005/index.html" loading="lazy" title="デモプレビュー"></iframe>
-            </div>
-            <div class="article-card-body">
-              <span class="article-card-number">#005</span>
-              <h2 class="article-card-title">Glowing Button</h2>
-              <p class="article-card-description">クリックで光るインタラクティブなボタン</p>
-              <div class="article-card-meta">
-                <span class="article-card-category">Button</span>
-                <time class="article-card-date" datetime="2025-01-21">2025.01.21</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <!-- 記事カード #004 -->
-        <article class="article-card" data-category="card">
-          <a href="/004-social-cards" class="article-card-link">
-            <div class="article-card-thumbnail">
-              <iframe src="/demos/004/index.html" loading="lazy" title="デモプレビュー"></iframe>
-            </div>
-            <div class="article-card-body">
-              <span class="article-card-number">#004</span>
-              <h2 class="article-card-title">Social Cards</h2>
-              <p class="article-card-description">ホバーで展開するソーシャルメディアカード</p>
-              <div class="article-card-meta">
-                <span class="article-card-category">Card</span>
-                <time class="article-card-date" datetime="2025-01-21">2025.01.21</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <!-- 記事カード #003 -->
-        <article class="article-card" data-category="card">
-          <a href="/003-flip-card" class="article-card-link">
-            <div class="article-card-thumbnail">
-              <iframe src="/demos/003/index.html" loading="lazy" title="デモプレビュー"></iframe>
-            </div>
-            <div class="article-card-body">
-              <span class="article-card-number">#003</span>
-              <h2 class="article-card-title">Flip Card</h2>
-              <p class="article-card-description">ホバーで裏返る3Dカードアニメーション</p>
-              <div class="article-card-meta">
-                <span class="article-card-category">Card</span>
-                <time class="article-card-date" datetime="2025-01-17">2025.01.17</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <!-- 記事カード #002 -->
-        <article class="article-card" data-category="button">
-          <a href="/002-gradient-button" class="article-card-link">
-            <div class="article-card-thumbnail">
-              <iframe src="/demos/002/index.html" loading="lazy" title="デモプレビュー"></iframe>
-            </div>
-            <div class="article-card-body">
-              <span class="article-card-number">#002</span>
-              <h2 class="article-card-title">Gradient Button</h2>
-              <p class="article-card-description">グラデーションが流れる美しいボタン</p>
-              <div class="article-card-meta">
-                <span class="article-card-category">Button</span>
-                <time class="article-card-date" datetime="2025-01-16">2025.01.16</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <!-- 記事カード #001 -->
-        <article class="article-card" data-category="loading">
-          <a href="/001-loading-spinner" class="article-card-link">
-            <!-- サムネイル（iframe でデモ表示） -->
-            <div class="article-card-thumbnail">
-              <iframe src="/demos/001/index.html" loading="lazy" title="デモプレビュー"></iframe>
-            </div>
-            <!-- 情報 -->
-            <div class="article-card-body">
-              <span class="article-card-number">#001</span>
-              <h2 class="article-card-title">Loading Spinner</h2>
-              <p class="article-card-description">シンプルで美しいローディングアニメーション</p>
-              <div class="article-card-meta">
-                <span class="article-card-category">Loading</span>
-                <time class="article-card-date" datetime="2025-01-15">2025.01.15</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
+        {articles.map((article) => (
+          <ArticleCard
+            number={article.number}
+            title={article.title}
+            description={article.description}
+            category={article.category}
+            date={article.date}
+            slug={article.slug}
+          />
+        ))}
       </div>
     </div>
   </section>

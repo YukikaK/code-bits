@@ -1,0 +1,29 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  description: string;
+  category: string;
+  date: string;
+  slug: string;
+}
+
+const { number, title, description, category, date, slug } = Astro.props;
+---
+
+<article class="article-card" data-category={category.toLowerCase()}>
+  <a href={`/${slug}`} class="article-card-link">
+    <div class="article-card-thumbnail">
+      <iframe src={`/demos/${number}/index.html`} loading="lazy" title="デモプレビュー"></iframe>
+    </div>
+    <div class="article-card-body">
+      <span class="article-card-number">#{number}</span>
+      <h2 class="article-card-title">{title}</h2>
+      <p class="article-card-description">{description}</p>
+      <div class="article-card-meta">
+        <span class="article-card-category">{category}</span>
+        <time class="article-card-date" datetime={date}>{date.replace(/-/g, '.')}</time>
+      </div>
+    </div>
+  </a>
+</article>
