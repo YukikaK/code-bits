@@ -9,62 +9,50 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
-  font-family: 'Arial', sans-serif;
+  background: #000;
+  overflow: hidden;
 }
 
-.container {
-  text-align: center;
-}
-
-svg {
-  width: 300px;
-  height: 300px;
-  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
-}
-
-#morphShape {
-  transition: d 2s ease-in-out;
-}
-
-.stop1 {
-  stop-color: #ff6ec4;
-  animation: colorShift1 6s ease-in-out infinite;
-}
-
-.stop2 {
-  stop-color: #7873f5;
-  animation: colorShift2 6s ease-in-out infinite;
-}
-
-@keyframes colorShift1 {
-  0%, 100% { stop-color: #ff6ec4; }
-  33% { stop-color: #7873f5; }
-  66% { stop-color: #4facfe; }
-}
-
-@keyframes colorShift2 {
-  0%, 100% { stop-color: #7873f5; }
-  33% { stop-color: #4facfe; }
-  66% { stop-color: #ff6ec4; }
-}
-
-.shape-name {
-  margin-top: 2rem;
-  font-size: 2rem;
-  color: #fff;
+.wave-text {
+  font-size: 5rem;
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 0.2em;
+  position: relative;
+  cursor: pointer;
+}
+
+.wave-text span {
+  display: inline-block;
+  animation: wave 1.5s ease-in-out infinite;
+  background: linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0, #ff0080);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: wave 1.5s ease-in-out infinite, gradient 3s ease infinite;
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @media (max-width: 768px) {
-  svg {
-    width: 250px;
-    height: 250px;
-  }
-
-  .shape-name {
-    font-size: 1.5rem;
+  .wave-text {
+    font-size: 3rem;
   }
 }

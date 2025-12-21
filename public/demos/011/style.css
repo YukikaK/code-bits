@@ -10,49 +10,70 @@ body {
   justify-content: center;
   align-items: center;
   background: #000;
-  overflow: hidden;
+  font-family: 'Arial', sans-serif;
 }
 
-.wave-text {
-  font-size: 5rem;
+.neon-sign {
+  text-align: center;
+}
+
+.neon-text {
+  display: block;
+  font-size: 8rem;
   font-weight: bold;
+  color: #fff;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  position: relative;
-  cursor: pointer;
+  letter-spacing: 0.3em;
+  text-shadow:
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 30px #fff,
+    0 0 40px #ff00de,
+    0 0 70px #ff00de,
+    0 0 80px #ff00de,
+    0 0 100px #ff00de,
+    0 0 150px #ff00de;
+  animation: flicker 3s infinite alternate;
 }
 
-.wave-text span {
-  display: inline-block;
-  animation: wave 1.5s ease-in-out infinite;
-  background: linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0, #ff0080);
-  background-size: 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: wave 1.5s ease-in-out infinite, gradient 3s ease infinite;
+.neon-text:nth-child(2) {
+  color: #00d9ff;
+  text-shadow:
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 30px #fff,
+    0 0 40px #00d9ff,
+    0 0 70px #00d9ff,
+    0 0 80px #00d9ff,
+    0 0 100px #00d9ff,
+    0 0 150px #00d9ff;
+  animation-delay: 0.3s;
 }
 
-@keyframes wave {
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.4;
+  }
+}
+
+.neon-text:hover {
+  animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
   0%, 100% {
-    transform: translateY(0);
+    transform: scale(1);
   }
   50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes gradient {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
+    transform: scale(1.05);
   }
 }
 
 @media (max-width: 768px) {
-  .wave-text {
-    font-size: 3rem;
+  .neon-text {
+    font-size: 4rem;
   }
 }

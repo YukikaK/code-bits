@@ -3,21 +3,21 @@ import ArticleLayout from '../layouts/ArticleLayout.astro';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const demoPath = path.join(process.cwd(), 'public/demos/011');
+const demoPath = path.join(process.cwd(), 'public/demos/010');
 const htmlCode = fs.readFileSync(path.join(demoPath, 'index.html'), 'utf-8');
 const cssCode = fs.readFileSync(path.join(demoPath, 'style.css'), 'utf-8');
 const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
 ---
 
 <ArticleLayout
-  title="#011 Wave Text - Code Bits"
+  title="#010 Wave Text - Code Bits"
   description="波打つテキストエフェクト。"
 >
   <article class="article">
     <div class="container">
       <header class="article-header">
         <div class="article-meta">
-          <span class="article-number">#011</span>
+          <span class="article-number">#010</span>
           <span class="article-category">Text</span>
           <time class="article-date" datetime="2025-01-21">2025.01.21</time>
         </div>
@@ -38,7 +38,7 @@ const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
           </button>
         </div>
         <div class="demo-container">
-          <iframe src="/demos/011/index.html" id="demoFrame" title="デモ" class="demo-iframe"></iframe>
+          <iframe src="/demos/010/index.html" id="demoFrame" title="デモ" class="demo-iframe"></iframe>
         </div>
       </section>
 
@@ -113,13 +113,13 @@ const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
       </section>
 
       <nav class="article-nav">
-        <a href="/010-morphing-shapes" class="article-nav-link article-nav-link--prev">
+        <a href="/009-particle-network" class="article-nav-link article-nav-link--prev">
           <span class="article-nav-label">← Previous</span>
-          <span class="article-nav-title">#010 Morphing Shapes</span>
+          <span class="article-nav-title">#009 Particle Network</span>
         </a>
-        <a href="/012-progress-bars" class="article-nav-link article-nav-link--next">
+        <a href="/011-neon-sign" class="article-nav-link article-nav-link--next">
           <span class="article-nav-label">Next →</span>
-          <span class="article-nav-title">#012 Progress Bars</span>
+          <span class="article-nav-title">#011 Neon Sign</span>
         </a>
       </nav>
     </div>
