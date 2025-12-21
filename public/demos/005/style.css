@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Arial', sans-serif;
+}
+
+.glow-button {
+  position: relative;
+  padding: 20px 60px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(45deg, #00d2ff, #3a47d5);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.4),
+              0 0 40px rgba(58, 71, 213, 0.3);
+}
+
+.glow-button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg,
+    #00d2ff,
+    #3a47d5,
+    #ff0080,
+    #ff8c00,
+    #00d2ff);
+  background-size: 400%;
+  border-radius: 50px;
+  z-index: -1;
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: glowing 8s linear infinite;
+}
+
+@keyframes glowing {
+  0% { background-position: 0 0; }
+  50% { background-position: 400% 0; }
+  100% { background-position: 0 0; }
+}
+
+.glow-button:hover::before {
+  opacity: 1;
+}
+
+.glow-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 210, 255, 0.6),
+              0 0 60px rgba(58, 71, 213, 0.5),
+              0 0 80px rgba(255, 0, 128, 0.3);
+}
+
+.glow-button:active {
+  transform: translateY(0);
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.4),
+              0 0 40px rgba(58, 71, 213, 0.3);
+}
+
+.glow-text {
+  position: relative;
+  z-index: 1;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.glow-effect {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+
+.glow-button.clicked .glow-effect {
+  opacity: 1;
+  transform: scale(2);
+  transition: all 0.6s ease;
+}
+
+.glow-button.clicked {
+  animation: pulse 0.3s ease;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+}

@@ -4,14 +4,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 // デモファイルの読み込み
-const demoPath = path.join(process.cwd(), 'public/demos/004');
+const demoPath = path.join(process.cwd(), 'public/demos/005');
 const htmlCode = fs.readFileSync(path.join(demoPath, 'index.html'), 'utf-8');
 const cssCode = fs.readFileSync(path.join(demoPath, 'style.css'), 'utf-8');
+const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
 ---
 
 <ArticleLayout
-  title="#004 Social Cards - Code Bits"
-  description="ホバーで展開するソーシャルメディアカードアニメーション。"
+  title="#005 Glowing Button - Code Bits"
+  description="クリックで光るインタラクティブなボタンアニメーション。"
 >
   <article class="article">
     <div class="container">
@@ -19,14 +20,14 @@ const cssCode = fs.readFileSync(path.join(demoPath, 'style.css'), 'utf-8');
       <!-- 記事ヘッダー -->
       <header class="article-header">
         <div class="article-meta">
-          <span class="article-number">#004</span>
-          <span class="article-category">Card</span>
+          <span class="article-number">#005</span>
+          <span class="article-category">Button</span>
           <time class="article-date" datetime="2025-01-21">2025.01.21</time>
         </div>
-        <h1 class="article-title">Social Cards</h1>
+        <h1 class="article-title">Glowing Button</h1>
         <p class="article-description">
-          ホバーで展開するソーシャルメディアカード。<br>
-          ガラスモーフィズムとグラデーションを使った美しいUIです。
+          クリックで光るインタラクティブなボタン。<br>
+          グラデーションアニメーションとJavaScriptによる動的なエフェクトです。
         </p>
       </header>
 
@@ -41,7 +42,7 @@ const cssCode = fs.readFileSync(path.join(demoPath, 'style.css'), 'utf-8');
           </button>
         </div>
         <div class="demo-container">
-          <iframe src="/demos/004/index.html" id="demoFrame" title="デモ" class="demo-iframe"></iframe>
+          <iframe src="/demos/005/index.html" id="demoFrame" title="デモ" class="demo-iframe"></iframe>
         </div>
       </section>
 
@@ -85,6 +86,26 @@ const cssCode = fs.readFileSync(path.join(demoPath, 'style.css'), 'utf-8');
         </div>
       </section>
 
+      <!-- JavaScript -->
+      <section class="code-section">
+        <div class="code-header">
+          <h2 class="code-title">
+            <span class="code-lang-icon js">JS</span>
+            script.js
+          </h2>
+          <button class="copy-btn" data-target="jsCode" aria-label="コードをコピー">
+            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+        <div class="code-block">
+          <pre><code class="language-javascript" id="jsCode">{jsCode}</code></pre>
+        </div>
+      </section>
+
       <!-- ダウンロード -->
       <section class="download-section">
         <h2 class="download-title">Download</h2>
@@ -101,14 +122,11 @@ const cssCode = fs.readFileSync(path.join(demoPath, 'style.css'), 'utf-8');
 
       <!-- ナビゲーション -->
       <nav class="article-nav">
-        <a href="/003-flip-card" class="article-nav-link article-nav-link--prev">
+        <a href="/004-social-cards" class="article-nav-link article-nav-link--prev">
           <span class="article-nav-label">← Previous</span>
-          <span class="article-nav-title">#003 Flip Card</span>
+          <span class="article-nav-title">#004 Social Cards</span>
         </a>
-        <a href="/005-glowing-button" class="article-nav-link article-nav-link--next">
-          <span class="article-nav-label">Next →</span>
-          <span class="article-nav-title">#005 Glowing Button</span>
-        </a>
+        <div></div>
       </nav>
 
     </div>
