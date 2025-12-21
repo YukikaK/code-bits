@@ -207,6 +207,8 @@
   background-color: var(--color-bg-code);
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   overflow: hidden;
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 .code-block pre {
