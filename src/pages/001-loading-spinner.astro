@@ -1,0 +1,135 @@
+---
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+// デモファイルの読み込み
+const demoPath = path.join(process.cwd(), 'public/demos/001');
+const htmlCode = fs.readFileSync(path.join(demoPath, 'index.html'), 'utf-8');
+const cssCode = fs.readFileSync(path.join(demoPath, 'style.css'), 'utf-8');
+---
+
+<ArticleLayout
+  title="#001 Loading Spinner - Code Bits"
+  description="CSSだけで作るシンプルなローディングスピナー。コピー＆ペーストで使えます。"
+>
+  <article class="article">
+    <div class="container">
+
+      <!-- 記事ヘッダー -->
+      <header class="article-header">
+        <div class="article-meta">
+          <span class="article-number">#001</span>
+          <span class="article-category">Loading</span>
+          <time class="article-date" datetime="2025-01-15">2025.01.15</time>
+        </div>
+        <h1 class="article-title">Loading Spinner</h1>
+        <p class="article-description">
+          CSSだけで作るシンプルなローディングスピナー。<br>
+          border と animation を組み合わせた定番の実装です。
+        </p>
+      </header>
+
+      <!-- AdSense: 記事上部 -->
+      <div class="ad-slot ad-slot--article-top">
+        <!-- AdSense コード -->
+      </div>
+
+      <!-- デモエリア -->
+      <section class="demo-section">
+        <div class="demo-header">
+          <h2 class="demo-title">Demo</h2>
+          <button class="demo-fullscreen-btn" id="fullscreenBtn" aria-label="フルスクリーン表示">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+            </svg>
+          </button>
+        </div>
+        <div class="demo-container">
+          <iframe
+            src="/demos/001/index.html"
+            id="demoFrame"
+            title="デモ"
+            class="demo-iframe"
+          ></iframe>
+        </div>
+      </section>
+
+      <!-- コードセクション：HTML -->
+      <section class="code-section">
+        <div class="code-header">
+          <h2 class="code-title">
+            <span class="code-lang-icon html">HTML</span>
+            index.html
+          </h2>
+          <button class="copy-btn" data-target="htmlCode" aria-label="コードをコピー">
+            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+        <div class="code-block">
+          <pre><code class="language-html" id="htmlCode">{htmlCode}</code></pre>
+        </div>
+      </section>
+
+      <!-- コードセクション：CSS -->
+      <section class="code-section">
+        <div class="code-header">
+          <h2 class="code-title">
+            <span class="code-lang-icon css">CSS</span>
+            style.css
+          </h2>
+          <button class="copy-btn" data-target="cssCode" aria-label="コードをコピー">
+            <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            <span class="copy-text">Copy</span>
+          </button>
+        </div>
+        <div class="code-block">
+          <pre><code class="language-css" id="cssCode">{cssCode}</code></pre>
+        </div>
+      </section>
+
+      <!-- AdSense: コード下 -->
+      <div class="ad-slot ad-slot--article-middle">
+        <!-- AdSense コード -->
+      </div>
+
+      <!-- ダウンロードセクション -->
+      <section class="download-section">
+        <h2 class="download-title">Download</h2>
+        <p class="download-description">
+          すべてのファイルをZIP形式でダウンロードできます。
+        </p>
+        <button class="download-btn" id="downloadBtn">
+          <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" x2="12" y1="15" y2="3" />
+          </svg>
+          <span>Download ZIP</span>
+        </button>
+      </section>
+
+      <!-- 前後の記事ナビゲーション -->
+      <nav class="article-nav">
+        <div></div>
+        <a href="/002-gradient-button" class="article-nav-link article-nav-link--next">
+          <span class="article-nav-label">Next →</span>
+          <span class="article-nav-title">#002 Gradient Button</span>
+        </a>
+      </nav>
+
+      <!-- AdSense: 記事下部 -->
+      <div class="ad-slot ad-slot--article-bottom">
+        <!-- AdSense コード -->
+      </div>
+
+    </div>
+  </article>
+</ArticleLayout>

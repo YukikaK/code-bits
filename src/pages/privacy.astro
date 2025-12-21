@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="プライバシーポリシー - Code Bits"
+  description="Code Bitsのプライバシーポリシー・個人情報の取り扱いについて"
+>
+  <article class="article">
+    <div class="container">
+      <header class="privacy-header">
+        <h1 class="privacy-title">プライバシーポリシー</h1>
+        <p class="privacy-date">最終更新日: 2025年1月21日</p>
+      </header>
+
+      <div class="privacy-content">
+        <section class="privacy-section">
+          <h2>1. 個人情報の利用目的</h2>
+          <p>当サイト「Code Bits」（以下「当サイト」）では、ユーザーから取得した個人情報を以下の目的で利用します。</p>
+          <ul>
+            <li>サービスの提供・運営</li>
+            <li>サイトの改善および最適化</li>
+            <li>広告配信の最適化</li>
+          </ul>
+        </section>
+
+        <section class="privacy-section">
+          <h2>2. 広告について</h2>
+          <h3>Google AdSense</h3>
+          <p>当サイトでは、Googleによって提供される広告配信サービス「Google AdSense」を利用しています。</p>
+          <p>Google AdSenseでは、Cookieを使用して、ユーザーの興味に基づく広告を表示します。Cookieを使用することで、GoogleやGoogleのパートナーは当サイトや他のサイトへのアクセス情報に基づいてユーザーに適切な広告を表示できます。</p>
+          <p>ユーザーは、<a href="https://adssettings.google.com/authenticated" target="_blank" rel="noopener noreferrer">Google広告設定ページ</a>で、インタレストベースでの広告掲載に使用されるCookieを無効にすることができます。また、<a href="https://www.aboutads.info/" target="_blank" rel="noopener noreferrer">www.aboutads.info</a>にアクセスして、インタレストベースでの広告掲載に使用される第三者配信事業者のCookieを無効にすることもできます。</p>
+        </section>
+
+        <section class="privacy-section">
+          <h2>3. アクセス解析ツールについて</h2>
+          <p>当サイトでは、Googleによるアクセス解析ツール「Google Analytics」を使用している場合があります。Google Analyticsはトラフィックデータの収集のためにCookieを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。</p>
+          <p>この機能はCookieを無効にすることで収集を拒否することができますので、お使いのブラウザの設定をご確認ください。</p>
+        </section>
+
+        <section class="privacy-section">
+          <h2>4. Cookieについて</h2>
+          <p>Cookieとは、ウェブサイトを利用したときに、ブラウザとサーバーとの間で送受信した利用履歴や入力内容などを、お客様のコンピュータにファイルとして保存しておく仕組みです。</p>
+          <p>当サイトでは、以下の目的でCookieを使用しています。</p>
+          <ul>
+            <li>広告配信の最適化</li>
+            <li>アクセス解析</li>
+            <li>ユーザーエクスペリエンスの向上</li>
+          </ul>
+          <p>ユーザーはブラウザの設定により、Cookieの受け取りを拒否したり、Cookieを受け取ったときに警告を表示させることができます。</p>
+        </section>
+
+        <section class="privacy-section">
+          <h2>5. 免責事項</h2>
+          <p>当サイトに掲載されている情報の正確性には万全を期していますが、利用者が当サイトの情報を用いて行う一切の行為について、当サイトは一切の責任を負いません。</p>
+          <p>当サイトは、利用者が当サイトを利用したことにより生じた利用者の損害及び利用者が第三者に与えた損害に関して、一切の責任を負いません。</p>
+        </section>
+
+        <section class="privacy-section">
+          <h2>6. 著作権・肖像権</h2>
+          <p>当サイトで掲載している文章や画像などの著作権・肖像権等は、各権利所有者に帰属します。権利を侵害する目的ではございません。記事の内容や掲載画像等に問題がございましたら、各権利所有者様本人が直接ご連絡ください。確認後、速やかに対応させていただきます。</p>
+        </section>
+
+        <section class="privacy-section">
+          <h2>7. リンクについて</h2>
+          <p>当サイトは基本的にリンクフリーです。リンクを行う場合の許可や連絡は不要です。ただし、インラインフレームの使用や画像の直リンクはご遠慮ください。</p>
+        </section>
+
+        <section class="privacy-section">
+          <h2>8. プライバシーポリシーの変更</h2>
+          <p>当サイトは、個人情報に関して適用される日本の法令を遵守するとともに、本プライバシーポリシーの内容を適宜見直し、その改善に努めます。</p>
+          <p>修正された最新のプライバシーポリシーは常に本ページにて開示されます。</p>
+        </section>
+      </div>
+    </div>
+  </article>
+
+  <style>
+    .privacy-header {
+      text-align: center;
+      padding: var(--space-12) 0 var(--space-8);
+      border-bottom: 2px solid var(--color-border);
+      margin-bottom: var(--space-10);
+    }
+
+    .privacy-title {
+      font-size: var(--text-3xl);
+      font-weight: var(--font-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    @media (min-width: 768px) {
+      .privacy-title {
+        font-size: var(--text-4xl);
+      }
+    }
+
+    .privacy-date {
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .privacy-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding-bottom: var(--space-12);
+    }
+
+    .privacy-section {
+      margin-bottom: var(--space-10);
+    }
+
+    .privacy-section h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-2);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    @media (min-width: 768px) {
+      .privacy-section h2 {
+        font-size: var(--text-2xl);
+      }
+    }
+
+    .privacy-section h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--font-semibold);
+      color: var(--color-text-primary);
+      margin: var(--space-4) 0 var(--space-2);
+    }
+
+    .privacy-section p {
+      line-height: var(--leading-relaxed);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    .privacy-section ul {
+      margin: var(--space-4) 0;
+      padding-left: var(--space-6);
+    }
+
+    .privacy-section li {
+      line-height: var(--leading-relaxed);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-2);
+    }
+
+    .privacy-section a {
+      color: var(--color-primary);
+      text-decoration: underline;
+      transition: color var(--transition-fast);
+    }
+
+    .privacy-section a:hover {
+      color: var(--color-primary-dark);
+    }
+  </style>
+</BaseLayout>

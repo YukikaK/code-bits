@@ -1,0 +1,976 @@
+おめでとうございます！では改めて詳細要件を書きます。
+
+---
+
+# 詳細要件定義書 - code-bits.jp
+
+## 1. プロジェクト概要
+
+| 項目 | 内容 |
+|------|------|
+| サイト名 | Code Bits |
+| ドメイン | code-bits.jp |
+| コンセプト | HTML/CSS/JSで作るアニメーション・UIの作品集 |
+| ホスティング | GitHub Pages |
+| 技術構成 | 静的HTML/CSS/JavaScript |
+| ターゲット | 日本語圏のWeb開発者・学習者 |
+
+## 2. サイト構成
+
+```
+code-bits.jp/
+├── index.html                    # トップページ（作品一覧）
+├── articles/
+│   ├── 001-loading-spinner.html  # 記事ページ
+│   ├── 002-hover-button.html
+│   └── ...
+├── category/
+│   ├── animation.html            # カテゴリ別一覧
+│   ├── button.html
+│   └── ...
+├── about.html                    # サイト説明
+├── css/
+│   ├── reset.css
+│   ├── variables.css
+│   ├── common.css
+│   ├── home.css
+│   └── article.css
+├── js/
+│   ├── main.js
+│   ├── copy-code.js
+│   ├── download-zip.js
+│   └── syntax-highlight.js
+├── assets/
+│   ├── images/
+│   ├── icons/
+│   └── ogp/
+└── demos/
+    ├── 001/
+    │   ├── index.html
+    │   ├── style.css
+    │   └── script.js（必要な場合）
+    └── 002/
+```
+
+## 3. デザインシステム
+
+### 3.1 カラーパレット
+
+```css
+:root {
+  /* ブランドカラー */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-light: #dbeafe;
+
+  /* 背景色 */
+  --color-bg-main: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-code: #1e293b;
+
+  /* テキスト色 */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+  --color-text-inverse: #f8fafc;
+
+  /* ボーダー */
+  --color-border: #e2e8f0;
+  --color-border-dark: #cbd5e1;
+
+  /* 状態色 */
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+
+  /* コードハイライト用 */
+  --color-code-keyword: #c792ea;
+  --color-code-string: #c3e88d;
+  --color-code-comment: #637777;
+  --color-code-tag: #f07178;
+  --color-code-attr: #ffcb6b;
+}
+```
+
+### 3.2 タイポグラフィ
+
+```css
+:root {
+  /* フォントファミリー */
+  --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Fira Code', 'Source Code Pro', monospace;
+
+  /* フォントサイズ */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 2rem;       /* 32px */
+  --text-4xl: 2.5rem;     /* 40px */
+
+  /* フォントウェイト */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-bold: 700;
+
+  /* 行間 */
+  --leading-tight: 1.25;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.8;
+}
+```
+
+### 3.3 スペーシング
+
+```css
+:root {
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+
+  /* コンテナ */
+  --container-max: 1200px;
+  --container-padding: var(--space-4);
+}
+```
+
+### 3.4 その他
+
+```css
+:root {
+  /* 角丸 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* シャドウ */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+  /* トランジション */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+
+  /* z-index */
+  --z-dropdown: 100;
+  --z-header: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+}
+```
+
+### 3.5 ブレークポイント
+
+```css
+/* モバイルファースト */
+/* sm: 640px以上 */
+/* md: 768px以上 */
+/* lg: 1024px以上 */
+/* xl: 1280px以上 */
+```
+
+## 4. ページ別詳細仕様
+
+### 4.1 共通ヘッダー
+
+```html
+<header class="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <!-- ロゴ -->
+      <a href="/" class="logo">
+        <span class="logo-icon">{ }</span>
+        <span class="logo-text">Code Bits</span>
+      </a>
+
+      <!-- ナビゲーション -->
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/category/animation.html" class="nav-link">Animation</a></li>
+          <li><a href="/category/button.html" class="nav-link">Button</a></li>
+          <li><a href="/category/card.html" class="nav-link">Card</a></li>
+          <li><a href="/category/form.html" class="nav-link">Form</a></li>
+          <li><a href="/about.html" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+
+      <!-- モバイルメニューボタン -->
+      <button class="menu-toggle" id="menuToggle" aria-label="メニューを開く">
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+      </button>
+    </div>
+  </div>
+</header>
+```
+
+**ヘッダー仕様：**
+- 高さ：60px（モバイル）、72px（デスクトップ）
+- スクロール時：固定表示（sticky）、背景に軽いぼかし
+- モバイル：ハンバーガーメニュー展開
+
+### 4.2 共通フッター
+
+```html
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <!-- サイト情報 -->
+      <div class="footer-brand">
+        <span class="footer-logo">{ } Code Bits</span>
+        <p class="footer-description">
+          HTML/CSS/JSで作るアニメーション・UIの作品集
+        </p>
+      </div>
+
+      <!-- リンク -->
+      <div class="footer-links">
+        <a href="/about.html">About</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="https://twitter.com/xxxxx" target="_blank" rel="noopener">Twitter</a>
+        <a href="https://github.com/xxxxx" target="_blank" rel="noopener">GitHub</a>
+      </div>
+
+      <!-- コピーライト -->
+      <p class="footer-copyright">
+        &copy; 2025 Code Bits. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+```
+
+### 4.3 トップページ（index.html）
+
+```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Bits - HTML/CSS/JS アニメーション・UI作品集</title>
+  <meta name="description" content="コピーして使えるHTML/CSS/JSのアニメーション・UIコンポーネント集。ローディング、ボタン、カードなど多数収録。">
+
+  <!-- OGP -->
+  <meta property="og:title" content="Code Bits - HTML/CSS/JS アニメーション・UI作品集">
+  <meta property="og:description" content="コピーして使えるHTML/CSS/JSのアニメーション・UIコンポーネント集">
+  <meta property="og:image" content="https://code-bits.jp/assets/ogp/home.png">
+  <meta property="og:url" content="https://code-bits.jp/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+  <!-- Header（共通） -->
+  <header class="site-header">...</header>
+
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">
+          <span class="hero-title-sub">コピーして使える</span>
+          HTML/CSS/JS<br>アニメーション集
+        </h1>
+        <p class="hero-description">
+          #001 から始まる作品番号で管理。<br>
+          気に入ったコードをコピー or ダウンロードして使えます。
+        </p>
+      </div>
+    </section>
+
+    <!-- AdSense: ヒーロー下 -->
+    <div class="ad-slot ad-slot--header">
+      <div class="container">
+        <!-- AdSense コード -->
+      </div>
+    </div>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+      <div class="container">
+        <div class="filter-buttons">
+          <button class="filter-btn is-active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="animation">Animation</button>
+          <button class="filter-btn" data-filter="button">Button</button>
+          <button class="filter-btn" data-filter="card">Card</button>
+          <button class="filter-btn" data-filter="form">Form</button>
+          <button class="filter-btn" data-filter="loading">Loading</button>
+          <button class="filter-btn" data-filter="text">Text</button>
+          <button class="filter-btn" data-filter="background">Background</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Articles Grid -->
+    <section class="articles-section">
+      <div class="container">
+        <div class="articles-grid">
+
+          <!-- 記事カード -->
+          <article class="article-card" data-category="loading">
+            <a href="/articles/001-loading-spinner.html" class="article-card-link">
+              <!-- サムネイル（iframe でデモ表示） -->
+              <div class="article-card-thumbnail">
+                <iframe src="/demos/001/index.html" loading="lazy" title="デモプレビュー"></iframe>
+              </div>
+              <!-- 情報 -->
+              <div class="article-card-body">
+                <span class="article-card-number">#001</span>
+                <h2 class="article-card-title">Loading Spinner</h2>
+                <div class="article-card-meta">
+                  <span class="article-card-category">Loading</span>
+                  <time class="article-card-date" datetime="2025-01-15">2025.01.15</time>
+                </div>
+              </div>
+            </a>
+          </article>
+
+          <!-- 繰り返し... -->
+
+        </div>
+      </div>
+    </section>
+
+    <!-- AdSense: 記事一覧中間 -->
+    <div class="ad-slot ad-slot--middle">
+      <div class="container">
+        <!-- AdSense コード -->
+      </div>
+    </div>
+
+    <!-- さらに記事があれば続く -->
+
+  </main>
+
+  <!-- Footer（共通） -->
+  <footer class="site-footer">...</footer>
+
+  <!-- Scripts -->
+  <script src="/js/main.js"></script>
+</body>
+</html>
+```
+
+**トップページ仕様：**
+- グリッド：モバイル1列、タブレット2列、デスクトップ3列
+- カードサムネイル：iframeでデモを直接表示（hover時に動きがわかる）
+- フィルター：JavaScriptでカテゴリ絞り込み
+- ページネーション：記事が増えたら追加（後から対応可）
+
+### 4.4 記事詳細ページ（articles/001-loading-spinner.html）
+
+```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>#001 Loading Spinner - Code Bits</title>
+  <meta name="description" content="CSSだけで作るシンプルなローディングスピナー。コピー＆ペーストで使えます。">
+
+  <!-- OGP -->
+  <meta property="og:title" content="#001 Loading Spinner - Code Bits">
+  <meta property="og:description" content="CSSだけで作るシンプルなローディングスピナー">
+  <meta property="og:image" content="https://code-bits.jp/assets/ogp/001.png">
+  <meta property="og:url" content="https://code-bits.jp/articles/001-loading-spinner.html">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/favicon.ico">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Prism.js（シンタックスハイライト） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/article.css">
+</head>
+<body>
+  <!-- Header（共通） -->
+  <header class="site-header">...</header>
+
+  <main class="main-content">
+    <article class="article">
+      <div class="container">
+
+        <!-- 記事ヘッダー -->
+        <header class="article-header">
+          <div class="article-meta">
+            <span class="article-number">#001</span>
+            <span class="article-category">Loading</span>
+            <time class="article-date" datetime="2025-01-15">2025.01.15</time>
+          </div>
+          <h1 class="article-title">Loading Spinner</h1>
+          <p class="article-description">
+            CSSだけで作るシンプルなローディングスピナー。
+            border と animation を組み合わせた定番の実装です。
+          </p>
+        </header>
+
+        <!-- AdSense: 記事上部 -->
+        <div class="ad-slot ad-slot--article-top">
+          <!-- AdSense コード -->
+        </div>
+
+        <!-- デモエリア -->
+        <section class="demo-section">
+          <div class="demo-header">
+            <h2 class="demo-title">Demo</h2>
+            <button class="demo-fullscreen-btn" id="fullscreenBtn" aria-label="フルスクリーン表示">
+              <svg><!-- expand icon --></svg>
+            </button>
+          </div>
+          <div class="demo-container">
+            <iframe
+              src="/demos/001/index.html"
+              id="demoFrame"
+              title="デモ"
+              class="demo-iframe"
+            ></iframe>
+          </div>
+        </section>
+
+        <!-- コードセクション：HTML -->
+        <section class="code-section">
+          <div class="code-header">
+            <h2 class="code-title">
+              <span class="code-lang-icon html">HTML</span>
+              index.html
+            </h2>
+            <button class="copy-btn" data-target="htmlCode" aria-label="コードをコピー">
+              <svg class="copy-icon"><!-- copy icon --></svg>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <div class="code-block">
+            <pre><code class="language-html" id="htmlCode">&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Loading Spinner&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="spinner"&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+        </section>
+
+        <!-- コードセクション：CSS -->
+        <section class="code-section">
+          <div class="code-header">
+            <h2 class="code-title">
+              <span class="code-lang-icon css">CSS</span>
+              style.css
+            </h2>
+            <button class="copy-btn" data-target="cssCode" aria-label="コードをコピー">
+              <svg class="copy-icon"><!-- copy icon --></svg>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <div class="code-block">
+            <pre><code class="language-css" id="cssCode">* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a1a2e;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left-color: #00d9ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}</code></pre>
+          </div>
+        </section>
+
+        <!-- コードセクション：JavaScript（ある場合のみ） -->
+        <section class="code-section" id="jsSection" style="display: none;">
+          <div class="code-header">
+            <h2 class="code-title">
+              <span class="code-lang-icon js">JS</span>
+              script.js
+            </h2>
+            <button class="copy-btn" data-target="jsCode" aria-label="コードをコピー">
+              <svg class="copy-icon"><!-- copy icon --></svg>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <div class="code-block">
+            <pre><code class="language-javascript" id="jsCode"></code></pre>
+          </div>
+        </section>
+
+        <!-- AdSense: コード下 -->
+        <div class="ad-slot ad-slot--article-middle">
+          <!-- AdSense コード -->
+        </div>
+
+        <!-- ダウンロードセクション -->
+        <section class="download-section">
+          <h2 class="download-title">Download</h2>
+          <p class="download-description">
+            すべてのファイルをZIP形式でダウンロードできます。
+          </p>
+          <button class="download-btn" id="downloadBtn">
+            <svg class="download-icon"><!-- download icon --></svg>
+            <span>Download ZIP</span>
+          </button>
+        </section>
+
+        <!-- 前後の記事ナビゲーション -->
+        <nav class="article-nav">
+          <a href="/articles/000-xxx.html" class="article-nav-link article-nav-link--prev">
+            <span class="article-nav-label">← Previous</span>
+            <span class="article-nav-title">#000 前の記事タイトル</span>
+          </a>
+          <a href="/articles/002-xxx.html" class="article-nav-link article-nav-link--next">
+            <span class="article-nav-label">Next →</span>
+            <span class="article-nav-title">#002 次の記事タイトル</span>
+          </a>
+        </nav>
+
+        <!-- AdSense: 記事下部 -->
+        <div class="ad-slot ad-slot--article-bottom">
+          <!-- AdSense コード -->
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer（共通） -->
+  <footer class="site-footer">...</footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/article.js"></script>
+</body>
+</html>
+```
+
+## 5. JavaScript機能詳細
+
+### 5.1 main.js（共通機能）
+
+```javascript
+/**
+ * main.js - 共通機能
+ */
+
+// モバイルメニュートグル
+const menuToggle = document.getElementById('menuToggle');
+const mainNav = document.getElementById('mainNav');
+
+if (menuToggle && mainNav) {
+  menuToggle.addEventListener('click', () => {
+    const isOpen = mainNav.classList.toggle('is-open');
+    menuToggle.classList.toggle('is-active');
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+}
+
+// スクロール時のヘッダー処理
+const header = document.querySelector('.site-header');
+let lastScrollY = window.scrollY;
+
+window.addEventListener('scroll', () => {
+  const currentScrollY = window.scrollY;
+
+  if (currentScrollY > 100) {
+    header.classList.add('is-scrolled');
+  } else {
+    header.classList.remove('is-scrolled');
+  }
+
+  lastScrollY = currentScrollY;
+});
+
+// フィルター機能（トップページ用）
+const filterButtons = document.querySelectorAll('.filter-btn');
+const articleCards = document.querySelectorAll('.article-card');
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // アクティブ状態の切り替え
+    filterButtons.forEach(btn => btn.classList.remove('is-active'));
+    button.classList.add('is-active');
+
+    // フィルタリング
+    const filter = button.dataset.filter;
+
+    articleCards.forEach(card => {
+      if (filter === 'all' || card.dataset.category === filter) {
+        card.style.display = '';
+        card.classList.add('fade-in');
+      } else {
+        card.style.display = 'none';
+        card.classList.remove('fade-in');
+      }
+    });
+  });
+});
+```
+
+### 5.2 article.js（記事ページ機能）
+
+```javascript
+/**
+ * article.js - 記事ページ機能
+ */
+
+// ===========================
+// コピー機能
+// ===========================
+const copyButtons = document.querySelectorAll('.copy-btn');
+
+copyButtons.forEach(button => {
+  button.addEventListener('click', async () => {
+    const targetId = button.dataset.target;
+    const codeElement = document.getElementById(targetId);
+
+    if (!codeElement) return;
+
+    const code = codeElement.textContent;
+
+    try {
+      await navigator.clipboard.writeText(code);
+
+      // ボタンの状態を変更
+      const copyText = button.querySelector('.copy-text');
+      const originalText = copyText.textContent;
+
+      button.classList.add('is-copied');
+      copyText.textContent = 'Copied!';
+
+      // 2秒後に元に戻す
+      setTimeout(() => {
+        button.classList.remove('is-copied');
+        copyText.textContent = originalText;
+      }, 2000);
+
+    } catch (err) {
+      console.error('コピーに失敗しました:', err);
+      alert('コピーに失敗しました。手動でコピーしてください。');
+    }
+  });
+});
+
+// ===========================
+// ZIPダウンロード機能
+// ===========================
+const downloadBtn = document.getElementById('downloadBtn');
+
+if (downloadBtn) {
+  downloadBtn.addEventListener('click', async () => {
+    const htmlCode = document.getElementById('htmlCode')?.textContent || '';
+    const cssCode = document.getElementById('cssCode')?.textContent || '';
+    const jsCode = document.getElementById('jsCode')?.textContent || '';
+
+    // 記事番号を取得（URLから）
+    const pathParts = window.location.pathname.split('/');
+    const fileName = pathParts[pathParts.length - 1].replace('.html', '');
+
+    // JSZipでZIP作成
+    const zip = new JSZip();
+
+    zip.file('index.html', htmlCode);
+    zip.file('style.css', cssCode);
+
+    // JSがあれば追加
+    if (jsCode.trim()) {
+      zip.file('script.js', jsCode);
+    }
+
+    // READMEを追加
+    const readme = `# ${fileName}
+
+Code Bits - https://code-bits.jp/
+
+## ファイル構成
+- index.html: HTML構造
+- style.css: スタイル
+${jsCode.trim() ? '- script.js: JavaScript\n' : ''}
+## 使い方
+1. ファイルをプロジェクトにコピー
+2. 必要に応じてカスタマイズ
+
+---
+© 2025 Code Bits
+`;
+
+    zip.file('README.md', readme);
+
+    // ZIP生成してダウンロード
+    try {
+      const content = await zip.generateAsync({ type: 'blob' });
+      const url = URL.createObjectURL(content);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `code-bits-${fileName}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('ダウンロードに失敗しました:', err);
+      alert('ダウンロードに失敗しました。');
+    }
+  });
+}
+
+// ===========================
+// フルスクリーン機能
+// ===========================
+const fullscreenBtn = document.getElementById('fullscreenBtn');
+const demoFrame = document.getElementById('demoFrame');
+
+if (fullscreenBtn && demoFrame) {
+  fullscreenBtn.addEventListener('click', () => {
+    if (demoFrame.requestFullscreen) {
+      demoFrame.requestFullscreen();
+    } else if (demoFrame.webkitRequestFullscreen) {
+      demoFrame.webkitRequestFullscreen();
+    } else if (demoFrame.msRequestFullscreen) {
+      demoFrame.msRequestFullscreen();
+    }
+  });
+}
+```
+
+## 6. Google AdSense 配置計画
+
+### 6.1 広告配置位置
+
+| 位置 | ページ | サイズ目安 |
+|------|--------|-----------|
+| ヒーロー下 | トップ | レスポンシブ（横長） |
+| 記事一覧中間 | トップ | レスポンシブ |
+| 記事タイトル下 | 詳細 | レスポンシブ（横長） |
+| コードブロック下 | 詳細 | レスポンシブ |
+| 記事下部 | 詳細 | レスポンシブ（大） |
+
+### 6.2 広告スロットCSS
+
+```css
+/* 広告共通スタイル */
+.ad-slot {
+  margin: var(--space-8) 0;
+  padding: var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  text-align: center;
+  min-height: 100px;
+}
+
+/* 審査前のプレースホルダー */
+.ad-slot::before {
+  content: 'Advertisement';
+  display: block;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* AdSense承認後は ::before を削除 */
+.ad-slot--approved::before {
+  display: none;
+}
+```
+
+## 7. SEO・OGP設定
+
+### 7.1 必須メタタグ
+
+```html
+<!-- 基本 -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ページの説明（120文字以内）">
+
+<!-- OGP -->
+<meta property="og:title" content="ページタイトル">
+<meta property="og:description" content="説明">
+<meta property="og:image" content="https://code-bits.jp/assets/ogp/xxx.png">
+<meta property="og:url" content="https://code-bits.jp/xxx">
+<meta property="og:type" content="website または article">
+<meta property="og:site_name" content="Code Bits">
+<meta property="og:locale" content="ja_JP">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@あなたのTwitterID">
+```
+
+### 7.2 OGP画像仕様
+
+| 項目 | 値 |
+|------|-----|
+| サイズ | 1200 x 630 px |
+| フォーマット | PNG または JPG |
+| ファイル名 | 記事番号.png（例：001.png） |
+
+```
+OGP画像の構成案：
++---------------------------+
+|     Code Bits             |
+|                           |
+|   #001                    |
+|   Loading Spinner         |
+|                           |
+|   [デモのスクリーンショット]  |
+|                           |
++---------------------------+
+```
+
+## 8. ファイル命名規則
+
+### 8.1 記事ファイル
+
+```
+形式：{3桁番号}-{スラッグ}.html
+例：
+  001-loading-spinner.html
+  002-hover-button.html
+  003-card-flip.html
+  042-gradient-text.html
+```
+
+### 8.2 デモファイル
+
+```
+demos/
+  {3桁番号}/
+    index.html
+    style.css
+    script.js（必要な場合）
+
+例：
+  demos/001/index.html
+  demos/001/style.css
+```
+
+### 8.3 OGP画像
+
+```
+assets/ogp/
+  home.png       # トップページ用
+  001.png        # 記事001用
+  002.png        # 記事002用
+```
+
+## 9. カテゴリ一覧
+
+| カテゴリ | スラッグ | 説明 |
+|---------|---------|------|
+| Animation | animation | 一般的なアニメーション |
+| Button | button | ボタン系 |
+| Card | card | カードUI |
+| Form | form | フォーム要素 |
+| Loading | loading | ローディング系 |
+| Text | text | テキストエフェクト |
+| Background | background | 背景エフェクト |
+| Navigation | navigation | ナビゲーション |
+| Hover | hover | ホバーエフェクト |
+| SVG | svg | SVGアニメーション |
+
+## 10. 開発フェーズ
+
+### Phase 1: 基盤構築
+- [ ] ディレクトリ構造作成
+- [ ] CSS変数・リセット設定
+- [ ] 共通レイアウト（ヘッダー・フッター）
+- [ ] GitHub リポジトリ作成
+- [ ] GitHub Pages 設定
+- [ ] 独自ドメイン接続
+
+### Phase 2: トップページ
+- [ ] ヒーローセクション
+- [ ] 記事カードコンポーネント
+- [ ] フィルター機能
+- [ ] レスポンシブ対応
+
+### Phase 3: 記事ページ
+- [ ] 記事テンプレート作成
+- [ ] デモ表示エリア
+- [ ] コードブロック（シンタックスハイライト）
+- [ ] コピー機能
+- [ ] ZIPダウンロード機能
+- [ ] 前後記事ナビゲーション
+
+### Phase 4: 初期コンテンツ
+- [ ] デモ記事 5〜10本作成
+- [ ] OGP画像作成
+- [ ] favicon作成
+
+### Phase 5: 公開・収益化
+- [ ] 最終テスト
+- [ ] 公開
+- [ ] Google Search Console 登録
+- [ ] Google AdSense 申請
+
+---
+
+この要件定義書で Claude Code に渡せば、順番に実装してくれるはずです！
+
+何か追加・修正したい点はありますか？
