@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="JavaScript - Code Bits"
+  description="JavaScript を使ったアニメーション・UIコンポーネント集"
+>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">JavaScript</h1>
+      <p class="hero-description">
+        JavaScript を使ったアニメーション・UI作品
+      </p>
+    </div>
+  </section>
+
+  <!-- Empty State -->
+  <section class="empty-state">
+    <div class="container">
+      <div class="empty-content">
+        <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        <h2 class="empty-title">記事がありません</h2>
+        <p class="empty-description">
+          JavaScript の記事は現在準備中です。<br>
+          近日公開予定ですので、お楽しみに！
+        </p>
+        <a href="/" class="empty-link">トップページに戻る</a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .empty-state {
+      padding: var(--space-16) 0;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .empty-content {
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .empty-icon {
+      width: 80px;
+      height: 80px;
+      color: var(--color-text-muted);
+      margin: 0 auto var(--space-6);
+    }
+
+    .empty-title {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-bold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .empty-description {
+      font-size: var(--text-base);
+      color: var(--color-text-secondary);
+      line-height: var(--leading-relaxed);
+      margin-bottom: var(--space-6);
+    }
+
+    .empty-link {
+      display: inline-block;
+      padding: var(--space-3) var(--space-6);
+      background-color: var(--color-primary);
+      color: var(--color-bg-main);
+      font-weight: var(--font-medium);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+    }
+
+    .empty-link:hover {
+      background-color: var(--color-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+  </style>
+</BaseLayout>
