@@ -4,15 +4,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 // デモファイルの読み込み
-const demoPath = path.join(process.cwd(), 'public/demos/005');
+const demoPath = path.join(process.cwd(), 'public/demos/006');
 const htmlCode = fs.readFileSync(path.join(demoPath, 'index.html'), 'utf-8');
 const cssCode = fs.readFileSync(path.join(demoPath, 'style.css'), 'utf-8');
 const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
 ---
 
 <ArticleLayout
-  title="#005 Glowing Button - Code Bits"
-  description="クリックで光るインタラクティブなボタンアニメーション。"
+  title="#006 Sparkle Cursor Trail - Code Bits"
+  description="マウスカーソルに追従するキラキラエフェクト。"
 >
   <article class="article">
     <div class="container">
@@ -20,14 +20,14 @@ const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
       <!-- 記事ヘッダー -->
       <header class="article-header">
         <div class="article-meta">
-          <span class="article-number">#005</span>
-          <span class="article-category">Button</span>
+          <span class="article-number">#006</span>
+          <span class="article-category">Animation</span>
           <time class="article-date" datetime="2025-01-21">2025.01.21</time>
         </div>
-        <h1 class="article-title">Glowing Button</h1>
+        <h1 class="article-title">Sparkle Cursor Trail</h1>
         <p class="article-description">
-          クリックで光るインタラクティブなボタン。<br>
-          グラデーションアニメーションとJavaScriptによる動的なエフェクトです。
+          マウスカーソルに追従するキラキラエフェクト。<br>
+          パーティクルアニメーションとスムーズなイージングで実装した軌跡エフェクトです。
         </p>
       </header>
 
@@ -42,7 +42,7 @@ const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
           </button>
         </div>
         <div class="demo-container">
-          <iframe src="/demos/005/index.html" id="demoFrame" title="デモ" class="demo-iframe"></iframe>
+          <iframe src="/demos/006/index.html" id="demoFrame" title="デモ" class="demo-iframe"></iframe>
         </div>
       </section>
 
@@ -122,14 +122,11 @@ const jsCode = fs.readFileSync(path.join(demoPath, 'script.js'), 'utf-8');
 
       <!-- ナビゲーション -->
       <nav class="article-nav">
-        <a href="/004-social-cards" class="article-nav-link article-nav-link--prev">
+        <a href="/005-glowing-button" class="article-nav-link article-nav-link--prev">
           <span class="article-nav-label">← Previous</span>
-          <span class="article-nav-title">#004 Social Cards</span>
+          <span class="article-nav-title">#005 Glowing Button</span>
         </a>
-        <a href="/006-sparkle-cursor" class="article-nav-link article-nav-link--next">
-          <span class="article-nav-label">Next →</span>
-          <span class="article-nav-title">#006 Sparkle Cursor Trail</span>
-        </a>
+        <div></div>
       </nav>
 
     </div>
