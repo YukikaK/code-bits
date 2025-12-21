@@ -1,0 +1,70 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+  font-family: 'Arial', sans-serif;
+}
+
+.container {
+  text-align: center;
+}
+
+svg {
+  width: 300px;
+  height: 300px;
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+}
+
+#morphShape {
+  transition: d 2s ease-in-out;
+}
+
+.stop1 {
+  stop-color: #ff6ec4;
+  animation: colorShift1 6s ease-in-out infinite;
+}
+
+.stop2 {
+  stop-color: #7873f5;
+  animation: colorShift2 6s ease-in-out infinite;
+}
+
+@keyframes colorShift1 {
+  0%, 100% { stop-color: #ff6ec4; }
+  33% { stop-color: #7873f5; }
+  66% { stop-color: #4facfe; }
+}
+
+@keyframes colorShift2 {
+  0%, 100% { stop-color: #7873f5; }
+  33% { stop-color: #4facfe; }
+  66% { stop-color: #ff6ec4; }
+}
+
+.shape-name {
+  margin-top: 2rem;
+  font-size: 2rem;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+@media (max-width: 768px) {
+  svg {
+    width: 250px;
+    height: 250px;
+  }
+
+  .shape-name {
+    font-size: 1.5rem;
+  }
+}

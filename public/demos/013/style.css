@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  font-family: 'Arial', sans-serif;
+}
+
+.neon-sign {
+  text-align: center;
+}
+
+.neon-text {
+  display: block;
+  font-size: 8rem;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  text-shadow:
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 30px #fff,
+    0 0 40px #ff00de,
+    0 0 70px #ff00de,
+    0 0 80px #ff00de,
+    0 0 100px #ff00de,
+    0 0 150px #ff00de;
+  animation: flicker 3s infinite alternate;
+}
+
+.neon-text:nth-child(2) {
+  color: #00d9ff;
+  text-shadow:
+    0 0 10px #fff,
+    0 0 20px #fff,
+    0 0 30px #fff,
+    0 0 40px #00d9ff,
+    0 0 70px #00d9ff,
+    0 0 80px #00d9ff,
+    0 0 100px #00d9ff,
+    0 0 150px #00d9ff;
+  animation-delay: 0.3s;
+}
+
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.4;
+  }
+}
+
+.neon-text:hover {
+  animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 768px) {
+  .neon-text {
+    font-size: 4rem;
+  }
+}

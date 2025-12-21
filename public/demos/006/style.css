@@ -33,6 +33,14 @@ body {
   animation: gradientShift 3s ease infinite;
 }
 
+.mobile-text {
+  display: none;
+}
+
+.desktop-text {
+  display: block;
+}
+
 .content p {
   font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.7);
@@ -149,6 +157,15 @@ body {
 
   .content p {
     font-size: 1rem;
+  }
+
+  /* モバイルでは文言を切り替え */
+  .desktop-text {
+    display: none;
+  }
+
+  .mobile-text {
+    display: block;
   }
 
   /* モバイルでもグロー効果は表示 */

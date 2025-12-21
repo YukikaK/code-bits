@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Courier New', monospace;
+  padding: 20px;
+}
+
+.terminal {
+  width: 100%;
+  max-width: 700px;
+  background: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.terminal-header {
+  background: #2d2d2d;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.terminal-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.btn.close {
+  background: #ff5f56;
+}
+
+.btn.minimize {
+  background: #ffbd2e;
+}
+
+.btn.maximize {
+  background: #27c93f;
+}
+
+.terminal-title {
+  color: #8b8b8b;
+  font-size: 0.9rem;
+  flex: 1;
+  text-align: center;
+}
+
+.terminal-body {
+  padding: 20px;
+  min-height: 200px;
+  color: #00ff00;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.typing-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.prompt {
+  color: #00ff00;
+  font-weight: bold;
+}
+
+.typed-text {
+  color: #00ff00;
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.2em;
+  background: #00ff00;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .terminal-body {
+    font-size: 1rem;
+    padding: 15px;
+  }
+
+  .terminal-title {
+    font-size: 0.8rem;
+  }
+}

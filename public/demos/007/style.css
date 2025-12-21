@@ -1,0 +1,171 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+  font-family: 'Arial', sans-serif;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+}
+
+.heart-monitor {
+  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5),
+              inset 0 0 20px rgba(0, 255, 157, 0.1);
+  border: 2px solid rgba(0, 255, 157, 0.2);
+}
+
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 157, 0.6));
+}
+
+/* 心電図ライン */
+#ecg-line {
+  fill: none;
+  stroke: #00ff9d;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: ecgFlow 3s linear infinite;
+}
+
+@keyframes ecgFlow {
+  0% {
+    stroke-dashoffset: 600;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ハートアイコン */
+#heart-icon {
+  transform-origin: center;
+  animation: heartbeat 3s ease-in-out infinite;
+}
+
+#heart-icon path {
+  fill: #ff4d6d;
+  filter: drop-shadow(0 0 10px rgba(255, 77, 109, 0.8));
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  10% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  30% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* BPM表示 */
+.bpm-display {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  text-align: right;
+}
+
+.bpm-value {
+  display: block;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #00ff9d;
+  text-shadow: 0 0 20px rgba(0, 255, 157, 0.8);
+  line-height: 1;
+  animation: bpmPulse 3s ease-in-out infinite;
+}
+
+.bpm-label {
+  display: block;
+  font-size: 1rem;
+  color: rgba(0, 255, 157, 0.7);
+  margin-top: 5px;
+  letter-spacing: 3px;
+}
+
+@keyframes bpmPulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  10%, 30% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  20%, 40% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+}
+
+/* グリッド背景（オプション） */
+.heart-monitor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(0, 255, 157, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 157, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border-radius: 20px;
+  pointer-events: none;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .heart-monitor {
+    padding: 30px 20px;
+  }
+
+  .bpm-display {
+    right: 20px;
+    top: 15px;
+  }
+
+  .bpm-value {
+    font-size: 2rem;
+  }
+
+  .bpm-label {
+    font-size: 0.8rem;
+  }
+
+  #ecg-line {
+    stroke-width: 2;
+  }
+}

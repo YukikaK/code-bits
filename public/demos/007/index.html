@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Beat Animation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="heart-monitor">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 150">
+        <!-- 心電図ライン -->
+        <path id="ecg-line" d="M0 75 L80 75 L90 75 L95 35 L100 115 L105 75 L115 75 L120 60 L125 75 L200 75 L210 75 L215 35 L220 115 L225 75 L235 75 L240 60 L245 75 L320 75 L330 75 L335 35 L340 115 L345 75 L355 75 L360 60 L365 75 L440 75 L450 75 L455 35 L460 115 L465 75 L475 75 L480 60 L485 75 L600 75" />
+
+        <!-- ハート -->
+        <g id="heart-icon">
+          <path d="M300 55 C300 45 310 35 320 35 C325 35 328 38 330 42 C332 38 335 35 340 35 C350 35 360 45 360 55 C360 70 330 90 330 90 C330 90 300 70 300 55 Z" />
+        </g>
+      </svg>
+
+      <div class="bpm-display">
+        <span class="bpm-value">72</span>
+        <span class="bpm-label">BPM</span>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
