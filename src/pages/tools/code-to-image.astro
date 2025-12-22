@@ -1,0 +1,1078 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Code to Image - Tools - Code Bits"
+  description="コードを美しい画像に変換するツール。シンタックスハイライト、テーマ選択、カスタム背景に対応。"
+>
+  <article class="tool-page">
+    <div class="container">
+      <header class="tool-header">
+        <a href="/tools" class="back-link">← ツール一覧に戻る</a>
+        <h1 class="tool-title">コードを画像に変換</h1>
+        <p class="tool-description">
+          コードを美しい画像に変換できます。SNSでのコード共有に最適です。
+        </p>
+      </header>
+
+      <div class="editor-layout">
+        <!-- 設定パネル -->
+        <aside class="settings-panel">
+          <div class="setting-group">
+            <label for="langSelect">言語</label>
+            <select id="langSelect" class="setting-select">
+              <option value="javascript">JavaScript</option>
+              <option value="html">HTML</option>
+              <option value="css">CSS</option>
+              <option value="typescript">TypeScript</option>
+              <option value="python">Python</option>
+              <option value="php">PHP</option>
+              <option value="json">JSON</option>
+              <option value="bash">Bash</option>
+            </select>
+          </div>
+
+          <div class="setting-group">
+            <label for="bgColorInput">背景色</label>
+            <input type="color" id="bgColorInput" class="color-input" value="#667eea">
+          </div>
+
+          <div class="setting-group">
+            <label for="bgOpacitySlider">背景の透明度: <span id="bgOpacityValue">100%</span></label>
+            <input type="range" id="bgOpacitySlider" class="setting-slider" min="0" max="100" value="100" step="1">
+          </div>
+
+          <div class="setting-group">
+            <label for="paddingSlider">余白: <span id="paddingValue">32px</span></label>
+            <input type="range" id="paddingSlider" class="setting-slider" min="16" max="64" value="32" step="4">
+          </div>
+
+          <div class="setting-group">
+            <label for="fontSizeSlider">文字サイズ: <span id="fontSizeValue">14px</span></label>
+            <input type="range" id="fontSizeSlider" class="setting-slider" min="12" max="24" value="14" step="1">
+          </div>
+
+          <div class="setting-group">
+            <label for="filenameInput">ファイル名</label>
+            <input type="text" id="filenameInput" class="setting-input" value="index.js" placeholder="ファイル名">
+          </div>
+
+          <div class="setting-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="windowFrameCheckbox" checked>
+              <span>ウィンドウ枠を表示</span>
+            </label>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="export-group">
+            <p class="export-label">エクスポート</p>
+            <div class="setting-group">
+              <label for="formatSelect">形式</label>
+              <select id="formatSelect" class="setting-select">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="webp">WebP</option>
+                <option value="svg">SVG</option>
+              </select>
+            </div>
+            <button class="download-btn" id="downloadBtn">ダウンロード</button>
+          </div>
+        </aside>
+
+        <!-- Preview/Editor Area -->
+        <main class="preview-main">
+          <div class="preview-container" id="previewContainer">
+            <div class="window-frame" id="windowFrame">
+              <div class="window-header" id="windowHeader">
+                <div class="window-dots">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                </div>
+                <span class="window-filename" id="windowFilename">index.html</span>
+              </div>
+              <div class="code-editor-wrapper">
+                <pre id="codeHighlight" class="code-highlight" aria-hidden="true"><code class="language-javascript"></code></pre>
+                <textarea id="codeInput" class="code-editor" spellcheck="false" placeholder="コードを入力..."></textarea>
+              </div>
+              <script is:inline>
+                const codeTextarea = document.getElementById('codeInput');
+                if (codeTextarea) {
+                  codeTextarea.value = `function greet(name) {
+  console.log('Hello, ' + name + '!');
+}
+
+greet('World');`;
+                }
+              </script>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .tool-page {
+    padding: 2rem 0 4rem;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .tool-header {
+    margin-bottom: 2rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+  }
+
+  .back-link:hover {
+    color: var(--color-primary);
+  }
+
+  .tool-title {
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+  }
+
+  .tool-description {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+  }
+
+  /* Layout */
+  .editor-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+  }
+
+  /* Settings Panel */
+  .settings-panel {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+  }
+
+  .setting-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .setting-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .setting-group label {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+  }
+
+  .setting-select,
+  .setting-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-size: var(--text-sm);
+  }
+
+  .setting-select:focus,
+  .setting-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  .setting-slider {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .color-input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background: var(--color-bg);
+  }
+
+  .color-input::-webkit-color-swatch-wrapper {
+    padding: 2px;
+  }
+
+  .color-input::-webkit-color-swatch {
+    border: none;
+    border-radius: 4px;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: var(--text-sm);
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    cursor: pointer;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--color-border);
+    margin: 1.5rem 0;
+  }
+
+  .export-label {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
+
+  .download-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--color-primary);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: white;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 0.5rem;
+  }
+
+  .download-btn:hover {
+    background: #5a67d8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  }
+
+  .download-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Preview Area */
+  .preview-main {
+    min-height: 600px;
+  }
+
+  .preview-container {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: var(--radius-lg);
+    padding: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 600px;
+  }
+
+  .window-frame {
+    background: #282a36;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    border: none;
+    outline: none;
+  }
+
+  .window-header {
+    background: #21222c;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 44px;
+    box-sizing: border-box;
+  }
+
+  .window-dots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-red { background: #ff5f56; }
+  .dot-yellow { background: #ffbd2e; }
+  .dot-green { background: #27c93f; }
+
+  .window-filename {
+    color: #f8f8f2;
+    font-size: 13px;
+    opacity: 0.7;
+    line-height: 44px;
+    height: 44px;
+  }
+
+  .code-editor-wrapper {
+    position: relative;
+    min-height: 200px;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  .code-editor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 32px;
+    border: none !important;
+    background: transparent !important;
+    color: transparent;
+    font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    resize: none;
+    outline: none !important;
+    box-shadow: none !important;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    tab-size: 2;
+    z-index: 2;
+    caret-color: #f8f8f2;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .code-editor::placeholder {
+    color: #6272a4;
+    -webkit-text-fill-color: #6272a4;
+  }
+
+  .code-editor::selection {
+    background: rgba(100, 114, 164, 0.3);
+  }
+
+  .code-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    padding: 32px;
+    margin: 0;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent;
+    font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    pointer-events: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    tab-size: 2;
+    overflow-wrap: break-word;
+    z-index: 1;
+  }
+
+  .code-highlight code {
+    font-family: inherit;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #f8f8f2; /* デフォルトの明るい文字色 */
+  }
+
+  /* Highlight.js Syntax Highlighting - VSCode Dark+ Theme */
+  :global(.hljs) {
+    color: #d4d4d4;
+  }
+
+  :global(.hljs-comment),
+  :global(.hljs-quote) {
+    color: #6a9955;
+  }
+
+  :global(.hljs-keyword),
+  :global(.hljs-selector-tag),
+  :global(.hljs-literal) {
+    color: #569cd6;
+  }
+
+  :global(.hljs-name),
+  :global(.hljs-tag) {
+    color: #569cd6;
+  }
+
+  :global(.hljs-variable),
+  :global(.hljs-template-variable),
+  :global(.hljs-params) {
+    color: #9cdcfe;
+  }
+
+  :global(.hljs-attr),
+  :global(.hljs-attribute) {
+    color: #9cdcfe;
+  }
+
+  :global(.hljs-number) {
+    color: #b5cea8;
+  }
+
+  :global(.hljs-built_in),
+  :global(.hljs-type) {
+    color: #4ec9b0;
+  }
+
+  :global(.hljs-string),
+  :global(.hljs-symbol),
+  :global(.hljs-bullet),
+  :global(.hljs-addition) {
+    color: #ce9178;
+  }
+
+  :global(.hljs-title),
+  :global(.hljs-function),
+  :global(.hljs-section) {
+    color: #dcdcaa;
+  }
+
+  :global(.hljs-selector-id),
+  :global(.hljs-selector-class) {
+    color: #d7ba7d;
+  }
+
+  :global(.hljs-regexp),
+  :global(.hljs-deletion),
+  :global(.hljs-meta),
+  :global(.hljs-link) {
+    color: #d16969;
+  }
+
+  :global(.hljs-emphasis) {
+    font-style: italic;
+  }
+
+  :global(.hljs-strong) {
+    font-weight: bold;
+  }
+
+  @media (max-width: 1024px) {
+    .editor-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .settings-panel {
+      position: static;
+    }
+
+    .export-buttons {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .preview-container {
+      padding: 2rem 1rem;
+    }
+
+    .export-buttons {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<script>
+  // Dracula theme (固定)
+  const theme = { bg: '#282a36', header: '#21222c', text: '#f8f8f2' };
+
+  // DOM elements
+  const codeInput = document.getElementById('codeInput');
+  const codeHighlight = document.getElementById('codeHighlight');
+  const codeHighlightCode = codeHighlight?.querySelector('code');
+  const previewContainer = document.getElementById('previewContainer');
+  const windowFrame = document.getElementById('windowFrame');
+  const windowHeader = document.getElementById('windowHeader');
+  const windowFilename = document.getElementById('windowFilename');
+  const langSelect = document.getElementById('langSelect');
+  const bgColorInput = document.getElementById('bgColorInput');
+  const bgOpacitySlider = document.getElementById('bgOpacitySlider');
+  const bgOpacityValue = document.getElementById('bgOpacityValue');
+  const paddingSlider = document.getElementById('paddingSlider');
+  const fontSizeSlider = document.getElementById('fontSizeSlider');
+  const filenameInput = document.getElementById('filenameInput');
+  const windowFrameCheckbox = document.getElementById('windowFrameCheckbox');
+  const paddingValue = document.getElementById('paddingValue');
+  const fontSizeValue = document.getElementById('fontSizeValue');
+  const formatSelect = document.getElementById('formatSelect');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  // Language mapping for highlight.js
+  const langMap = {
+    'html': 'xml',
+    'css': 'css',
+    'javascript': 'javascript',
+    'typescript': 'typescript',
+    'python': 'python',
+    'php': 'php',
+    'json': 'json',
+    'bash': 'bash'
+  };
+
+  // Update wrapper height based on content
+  function updateWrapperHeight() {
+    const wrapper = document.querySelector('.code-editor-wrapper');
+    if (!wrapper || !codeInput) {
+      console.log('updateWrapperHeight: wrapper or codeInput not found', { wrapper, codeInput });
+      return;
+    }
+
+    // 実際のスクロール高さを使用（最も正確）
+    const actualScrollHeight = codeHighlight?.scrollHeight || 0;
+
+    // フォールバック計算
+    const lines = codeInput.value.split('\n').length;
+    const fontSize = parseInt(getComputedStyle(codeInput).fontSize) || 14;
+    const lineHeight = 1.8;
+    const padding = parseInt(getComputedStyle(codeInput).paddingTop) * 2 || 64;
+    const calculatedFromLines = (lines * fontSize * lineHeight) + padding;
+
+    // どちらか大きい方を使用（最小200px）
+    const calculatedHeight = Math.max(200, actualScrollHeight, calculatedFromLines);
+
+    console.log('updateWrapperHeight:', {
+      lines,
+      fontSize,
+      lineHeight,
+      padding,
+      actualScrollHeight,
+      calculatedFromLines,
+      calculatedHeight,
+      currentHeight: wrapper.style.height
+    });
+
+    wrapper.style.height = calculatedHeight + 'px';
+  }
+
+  // Update syntax highlighting
+  function updateHighlight() {
+    if (!codeHighlightCode || !codeInput || !langSelect) return;
+
+    const code = codeInput.value;
+    const lang = langMap[langSelect.value] || 'javascript';
+
+    // highlight.jsのクラスをクリア
+    codeHighlightCode.className = '';
+    codeHighlightCode.removeAttribute('data-highlighted');
+
+    // コードを設定
+    codeHighlightCode.textContent = code;
+
+    if (window.hljs) {
+      // 言語を指定してハイライト
+      const result = hljs.highlight(code, { language: lang });
+      codeHighlightCode.innerHTML = result.value;
+    }
+
+    // 高さを更新
+    updateWrapperHeight();
+  }
+
+  // Update background
+  function updateBackground() {
+    if (!previewContainer || !bgColorInput || !bgOpacitySlider) return;
+
+    const color = bgColorInput.value;
+    const opacity = bgOpacitySlider.value / 100;
+
+    // HEX to RGB変換
+    const r = parseInt(color.substr(1, 2), 16);
+    const g = parseInt(color.substr(3, 2), 16);
+    const b = parseInt(color.substr(5, 2), 16);
+
+    previewContainer.style.background = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+  }
+
+  // Update opacity value display
+  function updateOpacityValue() {
+    if (!bgOpacityValue || !bgOpacitySlider) return;
+    bgOpacityValue.textContent = bgOpacitySlider.value + '%';
+  }
+
+  // Update padding
+  function updatePadding() {
+    const padding = paddingSlider.value + 'px';
+    codeInput.style.padding = padding;
+    if (codeHighlight) codeHighlight.style.padding = padding;
+    paddingValue.textContent = padding;
+    updateWrapperHeight();
+  }
+
+  // Update font size
+  function updateFontSize() {
+    const fontSize = fontSizeSlider.value + 'px';
+    codeInput.style.fontSize = fontSize;
+    if (codeHighlight) codeHighlight.style.fontSize = fontSize;
+    fontSizeValue.textContent = fontSize;
+    updateWrapperHeight();
+  }
+
+  // Update filename
+  function updateFilename() {
+    if (windowFilename && filenameInput) {
+      windowFilename.textContent = filenameInput.value;
+    }
+  }
+
+  // Toggle window frame
+  function toggleWindowFrame() {
+    windowHeader.style.display = windowFrameCheckbox.checked ? 'flex' : 'none';
+  }
+
+  // Export as raster image (PNG/JPEG/WebP) using Canvas API
+  async function exportRaster(format) {
+    try {
+      const code = codeInput.value;
+      const showFrame = windowFrameCheckbox.checked;
+      const padding = parseInt(paddingSlider.value);
+      const fontSize = parseInt(fontSizeSlider.value);
+      const displayFilename = filenameInput.value;
+      const bgColor = bgColorInput.value;
+      const bgOpacity = bgOpacitySlider.value / 100;
+
+      // フォント設定
+      const fontFamily = 'Menlo, Monaco, Consolas, monospace';
+      const lineHeight = fontSize * 1.8;
+      const headerHeight = showFrame ? 44 : 0;
+
+      // コードの行を取得
+      const lines = code.split('\n');
+
+      // キャンバスサイズを計算
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.font = `${fontSize}px ${fontFamily}`;
+
+      // 最大行幅を計算
+      let maxWidth = 0;
+      lines.forEach(line => {
+        const width = ctx.measureText(line).width;
+        if (width > maxWidth) maxWidth = width;
+      });
+
+      const codeWidth = maxWidth + padding * 2;
+      const codeHeight = lines.length * lineHeight + padding * 2;
+
+      // 背景の余白
+      const bgPadding = 40;
+      const canvasWidth = codeWidth + bgPadding * 2;
+      const canvasHeight = codeHeight + headerHeight + bgPadding * 2;
+
+      // 高解像度対応
+      const scale = 2;
+      canvas.width = canvasWidth * scale;
+      canvas.height = canvasHeight * scale;
+      ctx.scale(scale, scale);
+
+      // 背景色を描画（透明度対応）
+      const r = parseInt(bgColor.substr(1, 2), 16);
+      const g = parseInt(bgColor.substr(3, 2), 16);
+      const b = parseInt(bgColor.substr(5, 2), 16);
+      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${bgOpacity})`;
+      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+      // ウィンドウフレームの角丸四角形
+      const frameX = bgPadding;
+      const frameY = bgPadding;
+      const frameWidth = codeWidth;
+      const frameHeight = codeHeight + headerHeight;
+      const radius = 10;
+
+      // 角丸四角形を描画
+      ctx.beginPath();
+      ctx.moveTo(frameX + radius, frameY);
+      ctx.lineTo(frameX + frameWidth - radius, frameY);
+      ctx.quadraticCurveTo(frameX + frameWidth, frameY, frameX + frameWidth, frameY + radius);
+      ctx.lineTo(frameX + frameWidth, frameY + frameHeight - radius);
+      ctx.quadraticCurveTo(frameX + frameWidth, frameY + frameHeight, frameX + frameWidth - radius, frameY + frameHeight);
+      ctx.lineTo(frameX + radius, frameY + frameHeight);
+      ctx.quadraticCurveTo(frameX, frameY + frameHeight, frameX, frameY + frameHeight - radius);
+      ctx.lineTo(frameX, frameY + radius);
+      ctx.quadraticCurveTo(frameX, frameY, frameX + radius, frameY);
+      ctx.closePath();
+      ctx.fillStyle = '#282a36';
+      ctx.fill();
+
+      if (showFrame) {
+        // ヘッダー背景（角丸上部のみ）
+        ctx.beginPath();
+        ctx.moveTo(frameX + radius, frameY);
+        ctx.lineTo(frameX + frameWidth - radius, frameY);
+        ctx.quadraticCurveTo(frameX + frameWidth, frameY, frameX + frameWidth, frameY + radius);
+        ctx.lineTo(frameX + frameWidth, frameY + headerHeight);
+        ctx.lineTo(frameX, frameY + headerHeight);
+        ctx.lineTo(frameX, frameY + radius);
+        ctx.quadraticCurveTo(frameX, frameY, frameX + radius, frameY);
+        ctx.closePath();
+        ctx.fillStyle = '#21222c';
+        ctx.fill();
+
+        // 3色ドット
+        const dotY = frameY + headerHeight / 2;
+        const dotRadius = 6;
+        const dotStartX = frameX + 20;
+        const dotGap = 20;
+
+        // 赤
+        ctx.beginPath();
+        ctx.arc(dotStartX, dotY, dotRadius, 0, Math.PI * 2);
+        ctx.fillStyle = '#ff5f56';
+        ctx.fill();
+
+        // 黄
+        ctx.beginPath();
+        ctx.arc(dotStartX + dotGap, dotY, dotRadius, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffbd2e';
+        ctx.fill();
+
+        // 緑
+        ctx.beginPath();
+        ctx.arc(dotStartX + dotGap * 2, dotY, dotRadius, 0, Math.PI * 2);
+        ctx.fillStyle = '#27c93f';
+        ctx.fill();
+
+        // ファイル名
+        ctx.font = `13px system-ui, sans-serif`;
+        ctx.fillStyle = 'rgba(248, 248, 242, 0.7)';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(displayFilename, dotStartX + dotGap * 3 + 10, dotY);
+      }
+
+      // シンタックスハイライトされたコードを描画
+      ctx.font = `${fontSize}px ${fontFamily}`;
+      ctx.textBaseline = 'top';
+
+      const codeStartX = frameX + padding;
+      const codeStartY = frameY + headerHeight + padding;
+
+      // highlight.jsでハイライト
+      const lang = langSelect.value;
+      const highlighted = hljs.highlight(code, { language: lang });
+
+      // HTMLをパースして色付きで描画
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = highlighted.value;
+
+      // VSCode Dark+テーマの色マップ
+      const colorMap = {
+        'hljs-keyword': '#569cd6',      // 青 (const, function, return等)
+        'hljs-built_in': '#4ec9b0',     // シアン (console等)
+        'hljs-type': '#4ec9b0',         // シアン
+        'hljs-literal': '#569cd6',      // 青 (true, false, null)
+        'hljs-number': '#b5cea8',       // 薄緑
+        'hljs-string': '#ce9178',       // オレンジ
+        'hljs-symbol': '#ce9178',       // オレンジ
+        'hljs-comment': '#6a9955',      // 緑
+        'hljs-function': '#dcdcaa',     // 黄色
+        'hljs-title': '#dcdcaa',        // 黄色 (関数名)
+        'hljs-params': '#9cdcfe',       // 水色 (パラメータ)
+        'hljs-variable': '#9cdcfe',     // 水色
+        'hljs-attr': '#9cdcfe',         // 水色 (HTML属性名)
+        'hljs-attribute': '#9cdcfe',    // 水色
+        'hljs-name': '#569cd6',         // 青 (HTMLタグ名)
+        'hljs-tag': '#808080',          // グレー (< > 記号)
+        'hljs-selector-tag': '#d7ba7d', // 黄土色 (CSSタグ)
+        'hljs-selector-class': '#d7ba7d', // 黄土色
+        'hljs-selector-id': '#d7ba7d',  // 黄土色
+      };
+
+      // 行ごとに描画
+      lines.forEach((line, lineIndex) => {
+        const y = codeStartY + lineIndex * lineHeight;
+        let x = codeStartX;
+
+        // その行のハイライトされたHTMLを取得
+        const lineHighlighted = hljs.highlight(line, { language: lang });
+        const lineDiv = document.createElement('div');
+        lineDiv.innerHTML = lineHighlighted.value;
+
+        // ノードを走査して描画（再帰的に処理）
+        function drawNodes(node, inheritedColor = '#f8f8f2') {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent || '';
+            ctx.fillStyle = inheritedColor;
+            ctx.fillText(text, x, y);
+            x += ctx.measureText(text).width;
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const className = node.className || '';
+            let color = inheritedColor;
+            for (const cls in colorMap) {
+              if (className.includes(cls)) {
+                color = colorMap[cls];
+                break;
+              }
+            }
+            // 子ノードを再帰的に処理
+            if (node.childNodes.length > 0) {
+              node.childNodes.forEach(child => drawNodes(child, color));
+            } else {
+              const text = node.textContent || '';
+              ctx.fillStyle = color;
+              ctx.fillText(text, x, y);
+              x += ctx.measureText(text).width;
+            }
+          }
+        }
+
+        lineDiv.childNodes.forEach(child => drawNodes(child));
+      });
+
+      // 画像として出力
+      const mimeTypes = {
+        'png': 'image/png',
+        'jpeg': 'image/jpeg',
+        'webp': 'image/webp'
+      };
+
+      const dataUrl = canvas.toDataURL(mimeTypes[format], 0.92);
+      const inputFilename = filenameInput?.value || 'code';
+      const baseName = inputFilename.replace(/\.[^/.]+$/, '');
+      downloadFile(dataUrl, `${baseName}.${format}`);
+    } catch (error) {
+      alert('画像のダウンロードに失敗しました');
+      console.error(error);
+    }
+  }
+
+  // Export as SVG
+  function exportSVG() {
+    const code = codeInput.value;
+    const showFrame = windowFrameCheckbox.checked;
+    const padding = parseInt(paddingSlider.value);
+    const fontSize = parseInt(fontSizeSlider.value);
+    const displayFilename = filenameInput.value;
+    const bgColor = bgColorInput.value;
+    const bgOpacity = bgOpacitySlider.value / 100;
+    const lang = langSelect.value;
+
+    // VSCode Dark+テーマの色マップ
+    const colorMap = {
+      'hljs-keyword': '#569cd6',      // 青 (const, function, return等)
+      'hljs-built_in': '#4ec9b0',     // シアン (console等)
+      'hljs-type': '#4ec9b0',         // シアン
+      'hljs-literal': '#569cd6',      // 青 (true, false, null)
+      'hljs-number': '#b5cea8',       // 薄緑
+      'hljs-string': '#ce9178',       // オレンジ
+      'hljs-symbol': '#ce9178',       // オレンジ
+      'hljs-comment': '#6a9955',      // 緑
+      'hljs-function': '#dcdcaa',     // 黄色
+      'hljs-title': '#dcdcaa',        // 黄色 (関数名)
+      'hljs-params': '#9cdcfe',       // 水色 (パラメータ)
+      'hljs-variable': '#9cdcfe',     // 水色
+      'hljs-attr': '#9cdcfe',         // 水色 (HTML属性名)
+      'hljs-attribute': '#9cdcfe',    // 水色
+      'hljs-name': '#569cd6',         // 青 (HTMLタグ名)
+      'hljs-tag': '#808080',          // グレー (< > 記号)
+      'hljs-selector-tag': '#d7ba7d', // 黄土色 (CSSタグ)
+      'hljs-selector-class': '#d7ba7d', // 黄土色
+      'hljs-selector-id': '#d7ba7d',  // 黄土色
+    };
+
+    // Calculate dimensions
+    const lines = code.split('\n');
+    const lineHeight = fontSize * 1.8;
+    const headerHeight = showFrame ? 44 : 0;
+    const maxLineLength = Math.max(...lines.map(line => line.length));
+    const codeWidth = Math.max(400, maxLineLength * (fontSize * 0.6) + padding * 2);
+    const codeHeight = lines.length * lineHeight + padding * 2;
+
+    // 背景の余白
+    const bgPadding = 40;
+    const totalWidth = codeWidth + bgPadding * 2;
+    const totalHeight = codeHeight + headerHeight + bgPadding * 2;
+
+    // 背景色をRGBに変換
+    const r = parseInt(bgColor.substr(1, 2), 16);
+    const g = parseInt(bgColor.substr(3, 2), 16);
+    const b = parseInt(bgColor.substr(5, 2), 16);
+
+    let svgContent = `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="${totalWidth}" height="${totalHeight}" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .code { font-size: ${fontSize}px; font-family: Menlo, Monaco, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="${totalWidth}" height="${totalHeight}" fill="rgba(${r}, ${g}, ${b}, ${bgOpacity})"/>
+
+  <!-- ウィンドウフレーム（角丸） -->
+  <rect x="${bgPadding}" y="${bgPadding}" width="${codeWidth}" height="${codeHeight + headerHeight}" rx="10" fill="#282a36"/>`;
+
+    if (showFrame) {
+      // ヘッダー背景（上部角丸）
+      svgContent += `
+  <path d="M${bgPadding + 10},${bgPadding} L${bgPadding + codeWidth - 10},${bgPadding} Q${bgPadding + codeWidth},${bgPadding} ${bgPadding + codeWidth},${bgPadding + 10} L${bgPadding + codeWidth},${bgPadding + headerHeight} L${bgPadding},${bgPadding + headerHeight} L${bgPadding},${bgPadding + 10} Q${bgPadding},${bgPadding} ${bgPadding + 10},${bgPadding}" fill="#21222c"/>
+
+  <!-- 3色ドット -->
+  <circle cx="${bgPadding + 20}" cy="${bgPadding + headerHeight / 2}" r="6" fill="#ff5f56"/>
+  <circle cx="${bgPadding + 40}" cy="${bgPadding + headerHeight / 2}" r="6" fill="#ffbd2e"/>
+  <circle cx="${bgPadding + 60}" cy="${bgPadding + headerHeight / 2}" r="6" fill="#27c93f"/>
+
+  <!-- ファイル名 -->
+  <text x="${bgPadding + 80}" y="${bgPadding + headerHeight / 2}" fill="rgba(248, 248, 242, 0.7)" font-size="13" font-family="system-ui, sans-serif" dominant-baseline="middle">${escapeXml(displayFilename)}</text>`;
+    }
+
+    // シンタックスハイライトされたコードを描画
+    const codeStartX = bgPadding + padding;
+    const codeStartY = bgPadding + headerHeight + padding;
+
+    lines.forEach((line, lineIndex) => {
+      const y = codeStartY + lineIndex * lineHeight + fontSize;
+
+      if (line.trim() === '') {
+        // 空行はスキップ
+        return;
+      }
+
+      // その行のハイライトされたHTMLを取得
+      const lineHighlighted = hljs.highlight(line, { language: lang });
+      const lineDiv = document.createElement('div');
+      lineDiv.innerHTML = lineHighlighted.value;
+
+      let x = codeStartX;
+      let tspans = '';
+
+      // ノードを走査してtspanを生成（再帰的に処理）
+      function processNode(node, inheritedColor = '#f8f8f2') {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = escapeXml(node.textContent || '');
+          tspans += `<tspan x="${x}" fill="${inheritedColor}">${text}</tspan>`;
+          x += (node.textContent || '').length * fontSize * 0.6;
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          const className = node.className || '';
+          let color = inheritedColor;
+          for (const cls in colorMap) {
+            if (className.includes(cls)) {
+              color = colorMap[cls];
+              break;
+            }
+          }
+          // 子ノードを再帰的に処理
+          if (node.childNodes.length > 0) {
+            node.childNodes.forEach(child => processNode(child, color));
+          } else {
+            const text = escapeXml(node.textContent || '');
+            tspans += `<tspan x="${x}" fill="${color}">${text}</tspan>`;
+            x += (node.textContent || '').length * fontSize * 0.6;
+          }
+        }
+      }
+
+      lineDiv.childNodes.forEach(child => processNode(child));
+
+      svgContent += `
+  <text class="code" y="${y}">${tspans}</text>`;
+    });
+
+    svgContent += `
+</svg>`;
+
+    const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const inputFilename = filenameInput?.value || 'code';
+    const baseName = inputFilename.replace(/\.[^/.]+$/, '');
+    downloadFile(url, `${baseName}.svg`);
+    URL.revokeObjectURL(url);
+  }
+
+  // XML特殊文字をエスケープ
+  function escapeXml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+  }
+
+  // Download helper
+  function downloadFile(url, filename) {
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = url;
+    link.click();
+  }
+
+  // Sync scroll between textarea and highlight
+  function syncScroll() {
+    if (codeHighlight && codeInput) {
+      codeHighlight.scrollTop = codeInput.scrollTop;
+      codeHighlight.scrollLeft = codeInput.scrollLeft;
+    }
+  }
+
+  // Event listeners
+  if (codeInput) {
+    codeInput.addEventListener('input', updateHighlight);
+    codeInput.addEventListener('scroll', syncScroll);
+  }
+  if (langSelect) langSelect.addEventListener('change', updateHighlight);
+  if (bgColorInput) bgColorInput.addEventListener('input', updateBackground);
+  if (bgOpacitySlider) {
+    bgOpacitySlider.addEventListener('input', () => {
+      updateBackground();
+      updateOpacityValue();
+    });
+  }
+  if (paddingSlider) paddingSlider.addEventListener('input', updatePadding);
+  if (fontSizeSlider) fontSizeSlider.addEventListener('input', updateFontSize);
+  if (filenameInput) filenameInput.addEventListener('input', updateFilename);
+  if (windowFrameCheckbox) windowFrameCheckbox.addEventListener('change', toggleWindowFrame);
+
+  // Download button
+  if (downloadBtn && formatSelect) {
+    downloadBtn.addEventListener('click', () => {
+      const format = formatSelect.value;
+      if (format === 'svg') {
+        exportSVG();
+      } else {
+        exportRaster(format);
+      }
+    });
+  }
+
+  // Initialize
+  updateBackground();
+  updateOpacityValue();
+  updateHighlight();
+  updateFilename();
+  updateWrapperHeight();
+</script>

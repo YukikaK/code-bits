@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Tools - Code Bits"
+  description="Web制作に便利なツール集。コードを画像化するツールなど。"
+>
+  <section class="tools-page">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">Tools</h1>
+        <p class="page-description">
+          Web制作に便利なツール集です。
+        </p>
+      </header>
+
+      <div class="tools-grid">
+        <!-- Code to Image Tool -->
+        <article class="tool-card">
+          <a href="/tools/code-to-image" class="tool-card-link">
+            <div class="tool-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="9" x2="15" y2="9"></line>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+              </svg>
+            </div>
+            <div class="tool-card-body">
+              <h2 class="tool-card-title">Code to Image</h2>
+              <p class="tool-card-description">
+                コードを美しい画像に変換。SNSでのシェアやドキュメント作成に最適。
+              </p>
+              <div class="tool-card-features">
+                <span class="feature-tag">シンタックスハイライト</span>
+                <span class="feature-tag">複数テーマ</span>
+                <span class="feature-tag">カスタム背景</span>
+              </div>
+            </div>
+          </a>
+        </article>
+
+        <!-- Placeholder for future tools -->
+        <div class="tool-placeholder">
+          <div class="placeholder-icon">🔧</div>
+          <p>新しいツールを追加予定</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tools-page {
+    padding: 4rem 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .page-title {
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-text);
+  }
+
+  .page-description {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .tool-card {
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s;
+    border: 1px solid var(--color-border);
+  }
+
+  .tool-card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+  }
+
+  .tool-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 2rem;
+  }
+
+  .tool-card-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .tool-card-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: white;
+  }
+
+  .tool-card-title {
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
+  }
+
+  .tool-card-description {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    margin-bottom: 1.5rem;
+  }
+
+  .tool-card-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .feature-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .tool-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    border: 2px dashed var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  .placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .tools-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
